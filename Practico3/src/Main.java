@@ -82,6 +82,29 @@ public class Main {
         System.out.println("Resta de matrices 4x4: " + resta(matriz4x4_A, matriz4x4_B));
         System.out.println("Resta de matrices 5x4: " + resta(matriz5x4_A, matriz5x4_B));
 
+        int[][] produccion = {
+                {400, 200, 50},  // Producción de modelo A: N, L, S
+                {300, 100, 30}   // Producción de modelo B: N, L, S
+        };
+
+        // Matriz de recursos: filas son terminaciones y columnas son horas de taller y de administración
+        double[][] recursos = {
+                {25.0, 1.0},  // Recursos para terminación N: horas de taller, horas de administración
+                {30.0, 1.2},  // Recursos para terminación L: horas de taller, horas de administración
+                {33.0, 1.3}   // Recursos para terminación S: horas de taller, horas de administración
+        };
+
+        // Costo de la hora de taller y administración
+        double costoHoraTaller = 20.0;  // Costo por hora de taller
+        double costoHoraAdministracion = 15.0;  // Costo por hora de administración
+
+        // Calcular y mostrar los costos por terminación y totales
+        mostrarCostosPorTerminacion(produccion, recursos, costoHoraTaller, costoHoraAdministracion);
+
+        encontrarMaximo(matriz);
+        encontrarMinimo(matriz);
+        imprimirColumnaDelMinimo(matriz);
+        imprimirFilaDelMaximo(matriz);
 
     }
 
@@ -103,6 +126,162 @@ public class Main {
             }
         }
         return resta;
+    }
+
+    /* Ejercicio nro 3
+        Post:
+        Pre:
+     */
+
+
+    public static void imprimirMatrizInt(int[][] matriz) {
+        for (int[] fila : matriz) {
+            for (int elemento : fila) {
+                System.out.print(elemento + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void imprimirMatrizDouble(double[][] matriz) {
+        for (double[] fila : matriz) {
+            for (double elemento : fila) {
+                System.out.print(elemento + " ");
+            }
+            System.out.println();
+        }
+    }
+
+
+    private static void mostrarCostosPorTerminacion(int[][] produccion, double[][] recursos, double costoHoraTaller, double costoHoraAdministracion) {
+        double[] totalPorTerminacion = new double[recursos.length];
+
+        System.out.println("Terminación\tMODELO A\tMODELO B\tTOTAL");
+
+        for (int j = 0; j < recursos.length; j++) { // Itera sobre cada terminación
+            double costoModeloA = calcularCosto(produccion[0][j], recursos[j], costoHoraTaller, costoHoraAdministracion);
+            double costoModeloB = calcularCosto(produccion[1][j], recursos[j], costoHoraTaller, costoHoraAdministracion);
+            totalPorTerminacion[j] = costoModeloA + costoModeloB;
+
+            char terminacion = (j == 0) ? 'N' : (j == 1) ? 'L' : 'S';
+            System.out.printf("%s\t\t$%.2f\t$%.2f\t$%.2f%n", terminacion, costoModeloA, costoModeloB, totalPorTerminacion[j]);
+        }
+
+        // Suma y muestra los totales por modelo
+        double totalModeloA = 0, totalModeloB = 0;
+        for (double total : totalPorTerminacion) {
+            totalModeloA += total / 2;  // Asumiendo que cada modelo contribuye igual al total (esto debe ajustarse si la producción afecta al total)
+            totalModeloB += total / 2;
+        }
+        System.out.printf("TOTAL\t\t$%.2f\t$%.2f\t$%.2f%n", totalModeloA, totalModeloB, totalModeloA + totalModeloB);
+    }
+
+    public static double calcularCosto(int unidades, double[] recursos, double costoHoraTaller, double costoHoraAdministracion) {
+        double costoTaller = recursos[0] * costoHoraTaller;
+        double costoAdministracion = recursos[1] * costoHoraAdministracion;
+        return (costoTaller + costoAdministracion) * unidades;
+    }
+
+    /* Ejercicio nro 4
+
+     */
+
+    public static void encontrarMaximo(int[][] matriz) {
+        if (matriz == null || matriz.length == 0 || matriz[0].length == 0) {
+            System.out.println("La matriz está vacía o no es válida.");
+            return;
+        }
+
+        int maxVal = matriz[0][0];
+        int filaMax = 0;
+        int colMax = 0;
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] > maxVal) {
+                    maxVal = matriz[i][j];
+                    filaMax = i;
+                    colMax = j;
+                }
+            }
+        }
+        System.out.println("El máximo valor es " + maxVal + " y se encuentra en la posición (" + filaMax + ", " + colMax + ")");
+    }
+
+
+    public static void encontrarMinimo(int[][] matriz) {
+        if (matriz == null || matriz.length == 0 || matriz[0].length == 0) {
+            System.out.println("La matriz está vacía o no es válida.");
+            return;
+        }
+
+        int minVal = matriz[0][0];
+        int filaMin = 0;
+        int colMin = 0;
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] < minVal) {
+                    minVal = matriz[i][j];
+                    filaMin = i;
+                    colMin = j;
+                }
+            }
+        }
+        System.out.println("El máximo valor es " + minVal + " y se encuentra en la posición (" + filaMin + ", " + colMin + ")");
+    }
+
+
+    public static void imprimirColumnaDelMinimo(int[][] matriz) {
+        if (matriz == null || matriz.length == 0 || matriz[0].length == 0) {
+            System.out.println("La matriz está vacía o no es válida.");
+            return;
+        }
+
+        int minVal = matriz[0][0];
+        int colMin = 0;
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] < minVal) {
+                    minVal = matriz[i][j];
+                    colMin = j;
+                }
+            }
+        }
+
+        System.out.println("Columna del mínimo elemento (" + minVal + "):");
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.println(matriz[i][colMin]);
+        }
+    }
+
+
+    public static void imprimirFilaDelMaximo(int[][] matriz) {
+        if (matriz == null || matriz.length == 0 || matriz[0].length == 0) {
+            System.out.println("La matriz está vacía o no es válida.");
+            return;
+        }
+
+        int maxVal = matriz[0][0];
+        int filaMax = 0;
+
+        // Recorremos la matriz para encontrar el máximo
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] > maxVal) {
+                    maxVal = matriz[i][j];
+                    filaMax = i;
+                }
+            }
+        }
+
+        // Imprimimos la fila que contiene el máximo
+        System.out.println("Fila del máximo elemento (" + maxVal + "):");
+        for (int j = 0; j < matriz[filaMax].length; j++) {
+            System.out.print(matriz[filaMax][j] + " ");
+        }
+        System.out.println();
     }
 
 
