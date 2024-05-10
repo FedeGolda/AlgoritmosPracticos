@@ -1,0 +1,54 @@
+16 DE MAYO
+
+temas:
+matrices, vectores, recursion, preguntas de algoritmos, desordenes, la BO. TAMBIEN VA TEORICO ARRAYS (REFERENCIAS Y VALOR)
+
+practica array, matrices y recursion
+
+
+
+
+primera clases: como analizar los problemas entradas salidas, las fases de un problema
+PRE Y POST CONDICIONES (MAS IMPORTANTE) esta en el pdf del portal practico 2
+
+Arrays: el concepto, que es un array, como se accede a los valores de un array, como se crea, que es la declaracion, que es la declaracion y instanciacion, la diferencia entre la referencia y el contenido (vector y matriz trabajan para los dos) esta en el pdf
+
+Preguntas: cuales son los valores por defecto de un vector, booleanos for, strings es null porque es un objeto en java.
+
+LEER COMO SE ACCEDE A LOS ELEMENTOS DEL VECTOR
+como recorrer
+
+Matriz: concepto de matriz, esta en el pdf. el primer array es la referencia de los arrays 
+que son los matrices, como se inicializa, declaracion, como se recorre una matriz (con doble for)
+copiar arrays int[]b = {1,2,3}
+               int[]z = b // z tiene la referencia de b
+
+int a = 4
+funcion(4) // estoy tomando el valor de a
+
+Big O (teorico) que es un algoritmo
+
+Condiciones de un algoritmo, que sea finito
+
+complejidad algoritimica, que es Big O
+
+que es mas eficiente (mirando la grafica)
+
+Recursion (practico y teorico)
+Puede haber un ejercicio muy parecido a la de Fibonacci
+Pilas de llamadas, concepto y lo que hace
+que me haga un arbol de llamada
+
+
+
+
+
+
+
+
+
+
+
+
+puntaje maximo parcial 1 30
+puntaje maximo parcial 2 40
